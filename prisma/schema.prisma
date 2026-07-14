@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  documents    Document[]
+  shares       Share[]
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String   @default("Untitled document")
+  // TipTap editor state as JSON; single source of truth for content
+  content   Json?
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  shares    Share[]
+
+  @@index([ownerId])
+}
+
+enum ShareRole {
+  VIEWER
+  EDITOR
+}
+
+model Share {
+  id         String    @id @default(cuid())
+  documentId String
+  document   Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role       ShareRole @default(EDITOR)
+  createdAt  DateTime  @default(now())
+
+  @@unique([documentId, userId])
+  @@index([userId])
+}

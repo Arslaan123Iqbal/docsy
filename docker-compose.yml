@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: docsy-db
+    environment:
+      POSTGRES_USER: docsy
+      POSTGRES_PASSWORD: docsy
+      POSTGRES_DB: docsy
+    ports:
+      - "5433:5432"
+    volumes:
+      - docsy-pgdata:/var/lib/postgresql/data
+
+volumes:
+  docsy-pgdata:
