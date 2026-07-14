@@ -86,3 +86,4 @@ Supported types: `.txt`, `.md`, `.docx` (stated in the UI). Max size: 2 MB. Anyt
 - **No self-serve registration** — users are seeded; sharing targets must be existing users.
 - Renaming and deleting are owner-only by design; there is no transfer-of-ownership.
 - No document version history, comments, or export.
+# docsy
