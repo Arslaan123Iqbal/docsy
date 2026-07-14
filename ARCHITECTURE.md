@@ -1,5 +1,8 @@
 # Architecture note
 
+
+
+
 ## What I prioritized, and why
 
 With a 4–6 hour timebox the goal was a **complete, verifiable product slice** — every listed core capability working end to end — rather than depth in any single one. The three areas I chose to do properly rather than minimally:
